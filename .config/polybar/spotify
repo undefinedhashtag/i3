@@ -1,0 +1,13 @@
+#!/bin/bash
+SPOTIFY_PID="$(pidof -s spotify || pidof -s .spotify-wrapped)"
+if [[ ! -z "$SPOTIFY_PID" ]]; then
+  if [ "$(playerctl status)" = "Playing" ]; then
+    title=`exec playerctl metadata xesam:title`
+    artist=`exec playerctl metadata xesam:artist`
+    echo "♪ $artist - $title ♪"
+  elif [ "$(playerctl status)" = "Paused" ]; then
+    echo "♪ 302 - music is temporarily deactived ♪"
+  fi
+else
+  echo "404 - music not found"
+fi

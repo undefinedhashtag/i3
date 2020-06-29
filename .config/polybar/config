@@ -72,7 +72,7 @@ cursor-scroll = ns-resize
 
 [module/spotify]
 type = custom/script
-exec = ~/.config/polybar/spotify
+exec = python3 ~/.config/polybar/spotify.py
 format-underline = #939292
 format-foreground = #81db81
 interval = 2

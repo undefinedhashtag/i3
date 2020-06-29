@@ -68,7 +68,7 @@ def truncate(name, trunclen):
 
 # Default parameters
 output = fix_string(u'{play_pause} {artist}: {song}')
-trunclen = 35
+trunclen = 50
 play_pause = fix_string(u'\u25B6,\u23F8') # first character is play, second is paused
 
 label_with_font = '%{{T{font}}}{label}%{{T-}}'
@@ -107,7 +107,7 @@ try:
     if status == 'Playing':
         play_pause = play_pause[0]
     elif status == 'Paused':
-        play_pause = play_pause[1]
+        play_pause = '♪ 302 - music is temporarily deactived ♪'
     else:
         play_pause = str()
 
@@ -120,8 +120,8 @@ try:
     song = fix_string(metadata['xesam:title']) if metadata['xesam:title'] else ''
     album = fix_string(metadata['xesam:album']) if metadata['xesam:album'] else ''
 
-    if (quiet and status == 'Paused') or (not artist and not song and not album):
-        print('')
+    if (status == 'Paused') or (not artist and not song and not album):
+        print('♪ 302 - music is temporarily deactived ♪')
     else:
         if font:
             artist = label_with_font.format(font=font, label=artist)
@@ -136,6 +136,6 @@ try:
 
 except Exception as e:
     if isinstance(e, dbus.exceptions.DBusException):
-        print('')
+        print('404 - music not found')
     else:
         print(e)
